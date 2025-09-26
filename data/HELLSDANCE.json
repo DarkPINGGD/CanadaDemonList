@@ -12,10 +12,11 @@
     "records": [
         {
             "user": "Exence",
-            "link": "https://www.youtube.com/watch?v=R_X3PvtnAfU",
-            "percent": 40,
+            "link": "https://medal.tv/games/requested/clips/lbm0ICDXTHRe0sOu1?invite=cr-MSw5alUsNDMzNTc4NTc1",
+            "percent": 60,
             "hz": 60,
-            "mobile": false
+            "mobile": false,
+            "enjoyment": 10
         }
     ]
 }
