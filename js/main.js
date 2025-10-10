@@ -1,5 +1,6 @@
 import routes from "./routes.js";
 import { fetchList, fetchLeaderboard, fetchPacks, fetchStaff } from "./content.js";
+import React, { useState } from 'react';
 
 console.clear();
 
@@ -225,3 +226,43 @@ const router = VueRouter.createRouter({history: VueRouter.createWebHashHistory()
 
 app.use(router);
 app.mount("#app");
+
+// ...existing code inside the React component or module scope...
+const [videoUrl, setVideoUrl] = useState('');
+
+function getYouTubeId(url) {
+  if (!url) return null;
+  const m = url.match(/(?:v=|\/v\/|\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : null;
+}
+
+// ...existing JSX form where the completion is entered...
+<label>Completion video (YouTube URL)</label>
+<input
+  type="url"
+  value={videoUrl}
+  onChange={e => setVideoUrl(e.target.value)}
+  placeholder="https://www.youtube.com/watch?v=... "
+/>
+{getYouTubeId(videoUrl) && (
+  <a href={videoUrl} target="_blank" rel="noreferrer">
+    <img
+      alt="YouTube thumbnail"
+      src={`https://img.youtube.com/vi/${getYouTubeId(videoUrl)}/hqdefault.jpg`}
+      style={{ width: 160, height: 90, objectFit: 'cover', marginTop: 6 }}
+    />
+  </a>
+)}
+
+// ...existing submit handler (example name: onSubmitCompletion)...
+async function onSubmitCompletion(/* existing args */) {
+  // ...existing code building payload...
+  const trimmedVideo = videoUrl && videoUrl.trim() ? videoUrl.trim() : null;
+
+  const payload = {
+    // ...existing payload fields...
+    video: trimmedVideo, // store the raw URL (or null)
+  };
+
+  // ...existing submit logic (send payload to server / store locally)...
+}

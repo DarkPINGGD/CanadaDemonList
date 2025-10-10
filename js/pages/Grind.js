@@ -175,6 +175,7 @@ export default {
         copied: false,
         submitLoading: false,
         shouldRefreshLastSubmitted: false,
+        videoUrl: ''
     }),
 
     computed: {
@@ -420,6 +421,20 @@ export default {
                 console.error(e)
                 this.copied = "err"
             }
+        },
+        getYouTubeId(url) {
+            if (!url) return null;
+            const m = url.match(/(?:v=|\/v\/|\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+            return m ? m[1] : null;
+        },
+        onSubmitCompletion(/* existing args */) {
+          // ...existing submit logic...
+          const trimmedVideo = this.videoUrl && this.videoUrl.trim() ? this.videoUrl.trim() : null;
+          const payload = {
+            // ...existing payload fields...
+            video: trimmedVideo
+          };
+          // send/store payload...
         }
     },
 
