@@ -235,15 +235,6 @@ function getYouTubeId(url) {
   const m = url.match(/(?:v=|\/v\/|\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
   return m ? m[1] : null;
 }
-
-// ...existing JSX form where the completion is entered...
-<label>Completion video (YouTube URL)</label>
-<input
-  type="url"
-  value={videoUrl}
-  onChange={e => setVideoUrl(e.target.value)}
-  placeholder="https://www.youtube.com/watch?v=... "
-/>
 {getYouTubeId(videoUrl) && (
   <a href={videoUrl} target="_blank" rel="noreferrer">
     <img
