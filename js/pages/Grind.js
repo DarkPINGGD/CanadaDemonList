@@ -150,6 +150,13 @@ export default {
                         </div>
                     </div>
                 </div>
+                <label>Completion video (YouTube URL)</label>
+                <input type="url" v-model="videoUrl" placeholder="https://www.youtube.com/watch?v=..." />
+                <a v-if="getYouTubeId(videoUrl)" :href="videoUrl" target="_blank" rel="noreferrer">
+                  <img :src="\`https://img.youtube.com/vi/\${getYouTubeId(videoUrl)}/hqdefault.jpg\`"
+                       alt="YouTube thumbnail"
+                       style="width:160px;height:90px;object-fit:cover;margin-top:6px" />
+                </a>
             </div>
         </main>
     `,
