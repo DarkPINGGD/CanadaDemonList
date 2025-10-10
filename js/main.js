@@ -1,6 +1,5 @@
 import routes from "./routes.js";
 import { fetchList, fetchLeaderboard, fetchPacks, fetchStaff } from "./content.js";
-import React, { useState } from 'react';
 
 console.clear();
 
