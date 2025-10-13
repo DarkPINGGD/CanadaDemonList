@@ -11,12 +11,12 @@
     "enjoyment": 10,
     "records": [
         {
-            "user": "Nobody",
-            "link": "",
-            "percent": 0,
-            "hz": 0,
+            "user": "Exence",
+            "link": "https://medal.tv/tr/games/requested/clips/lfvsQPTJoFFH8IKV-?invite=cr-MSxsNHIsNDQwMTYzMTcw&v=38",
+            "percent": 33,
+            "hz": 60,
             "mobile": true,
-            "enjoyment": 0
+            "enjoyment": 5
         }
     ]
 }
