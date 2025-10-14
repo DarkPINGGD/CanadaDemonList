@@ -35,8 +35,9 @@
     },
     {
         "name": "Exence Pack",
-        "difficulty": 7,
+        "difficulty": 8,
         "levels": [
+            "Catastroveil",
             "HELLSDANCE",
             "Brupple",
             "DarkMatter",
