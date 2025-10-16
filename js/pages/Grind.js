@@ -12,11 +12,11 @@ import { score } from '../config.js';
 export default {
     components: { Spinner, Copy, Copied, Scroll, Btn },
     template: `
-        <main v-if="loading">
-            <Spinner></Spinner>
-        </main>
-        <main v-else class="grind-page">
-            <div v-if="store.errors.length > 0" class="login-container">
+         <main v-if="loading">
+             <Spinner></Spinner>
+         </main>
+         <main v-else class="grind-page">
+             <div v-if="store.errors.length > 0" class="login-container">
                 <h1>Error</h1>
                 <div class="user-suggest">
                     <h3>The list is currently broken, please contact a moderator to fix!</h3>
@@ -88,9 +88,9 @@ export default {
                         
                     </div>  
                     <div class="player-container uncompleted-container">
-                        <div v-for="([err, rank, level], i) in uncompletedList">
+                        <div v-for="([err, rank, level], i) in uncompletedList" :key="level.path">
                             <div class="grind-level-container" @mouseleave="hovered = null" :class="{'stats-focused': hovered === i}">
-                                <!-- Current Level -->
+                                <!-- Current Level (existing markup kept) -->
                                 <div class="level" :class="{completed: completed.levels?.some((completedLevel) => level.path === completedLevel.path)}">
                                     <a :href="level.verification" v-if="level.verification" target="_blank" class="video">
                                         <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.verification))" alt="Verification video">
@@ -112,8 +112,6 @@ export default {
                                         </div>
                                     </div>
                                     <form class="actions grind-actions">
-                                        <!-- this is a string so the site can handle people typing the other half of the fraction
-                                             (since the text box itself won't stop a user from doing that) -->
                                         <input type="text" placeholder="Enjoyment" v-model="typedValues[level.path].enjoyment">
                                         <input type="number" placeholder="Percent" value="100" :min="level.percentToQualify" max=100 v-model="typedValues[level.path].percent">
                                         <Btn v-if="!completed.levels?.some((completedLevel) => level.path === completedLevel.path)" style="background-color:rgb(27, 134, 29);" @click.native.prevent="complete(level)">Complete</Btn>
@@ -145,6 +143,23 @@ export default {
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
+
+                                <!-- PER-LEVEL VIDEO INPUT (renders under each level card) -->
+                                <div class="level-video-input" style="margin-top:10px; display:flex; align-items:center; gap:8px; width:100%;">
+                                    <input
+                                        type="url"
+                                        v-model.trim="videoUrls[level.path]"
+                                        :placeholder="'Paste completion video URL (YouTube) for ' + (level && level.name ? level.name : '')"
+                                        style="flex:1; padding:6px 8px; font-size:13px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:inherit; word-break:break-all;"
+                                        @keyup.enter="saveVideo(level.path)"
+                                    />
+                                    <button @click="saveVideo(level.path)" style="padding:6px 10px;border-radius:6px;background:#2e8b57;color:white;border:none;cursor:pointer;font-size:13px;">
+                                        Save
+                                    </button>
+                                    <a v-if="getYouTubeId(videoUrls[level.path])" :href="videoUrls[level.path]" target="_blank" rel="noreferrer" style="display:inline-block;width:120px;height:68px;overflow:hidden;border-radius:6px;">
+                                        <img :src="'https://img.youtube.com/vi/' + getYouTubeId(videoUrls[level.path]) + '/mqdefault.jpg'" alt="thumb" style="width:100%;height:100%;object-fit:cover;display:block;" />
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +198,7 @@ export default {
         copied: false,
         submitLoading: false,
         shouldRefreshLastSubmitted: false,
-        videoUrl: ''
+        videoUrls: {}   // per-level video URL storage (keyed by level.path)
     }),
 
     computed: {
@@ -435,15 +450,30 @@ export default {
             const m = url.match(/(?:v=|\/v\/|\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
             return m ? m[1] : null;
         },
-        onSubmitCompletion(/* existing args */) {
-          // ...existing submit logic...
-          const trimmedVideo = this.videoUrl && this.videoUrl.trim() ? this.videoUrl.trim() : null;
-          const payload = {
-            // ...existing payload fields...
-            video: trimmedVideo
-          };
-          // send/store payload...
-        }
+        _videoStorageKey(pathOrLevel) {
+            // accept either path string or level object
+            if (!pathOrLevel) return null;
+            if (typeof pathOrLevel === 'string') return `video:${pathOrLevel}`;
+            return `video:${pathOrLevel.path || pathOrLevel.id || pathOrLevel.name || 'unknown'}`;
+        },
+        saveVideo(path) {
+            const val = (this.videoUrls[path] || '').trim();
+            const key = this._videoStorageKey(path);
+            if (!val) {
+                localStorage.removeItem(key);
+                // clear from in-memory level if present
+                const found = this.list.find(([err, rank, lvl]) => lvl.path === path);
+                if (found) delete found[2].video;
+                return;
+            }
+            try {
+                localStorage.setItem(key, val);
+                const found = this.list.find(([err, rank, lvl]) => lvl.path === path);
+                if (found) found[2].video = val;
+            } catch (e) {
+                console.warn('Failed to save video URL', e);
+            }
+        },
     },
 
     async mounted() {
@@ -461,6 +491,16 @@ export default {
 
         this.list = this.store.list
         this.initTypedValues()
++
++        // initialize per-level videoUrls from localStorage or level.video
++        for (const [err, rank, lvl] of this.list) {
++            if (!lvl || !lvl.path) continue;
++            const key = this._videoStorageKey(lvl);
++            const stored = localStorage.getItem(key);
++            if (stored) this.videoUrls[lvl.path] = stored;
++            else if (lvl.video) this.videoUrls[lvl.path] = lvl.video;
++            else this.videoUrls[lvl.path] = '';
++        }
 
         const allUsers = await fetchUsers()
         this.allUsers = allUsers
@@ -488,4 +528,4 @@ export default {
             deep: true
         }
     },
-};
+ };
