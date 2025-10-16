@@ -490,7 +490,7 @@ export default {
         }
 
         this.list = this.store.list
-        this.initTypedValues()
+        this.initTypedValues();
 +
 +        // initialize per-level videoUrls from localStorage or level.video
 +        for (const [err, rank, lvl] of this.list) {
