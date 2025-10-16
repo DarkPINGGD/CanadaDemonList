@@ -150,13 +150,68 @@ export default {
                         </div>
                     </div>
                 </div>
-                <label>Completion video (YouTube URL)</label>
-                <input type="url" v-model="videoUrl" placeholder="https://www.youtube.com/watch?v=..." />
-                <a v-if="getYouTubeId(videoUrl)" :href="videoUrl" target="_blank" rel="noreferrer">
-                  <img :src="\`https://img.youtube.com/vi/\${getYouTubeId(videoUrl)}/hqdefault.jpg\`"
-                       alt="YouTube thumbnail"
-                       style="width:160px;height:90px;object-fit:cover;margin-top:6px" />
-                </a>
+                <div class="player-container uncompleted-container">
+                    <div v-for="([err, rank, level], i) in uncompletedList">
+                        <div class="grind-level-container" @mouseleave="hovered = null" :class="{'stats-focused': hovered === i}">
+                            <!-- Current Level -->
+                            <div class="level" :class="{completed: completed.levels?.some((completedLevel) => level.path === completedLevel.path)}">
+                                <a :href="level.verification" v-if="level.verification" target="_blank" class="video">
+                                    <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.verification))" alt="Verification video">
+                                </a>
+                                <div class="meta">
+                                    <div>
+                                        <div class="rank-container">
+                                            <p>#{{ level.rank }} - {{["Beginner", "Easy", "Medium", "Hard", "Insane", "Mythical", "Extreme", "Supreme", "Ethereal", "Legendary", "Silent", "Impossible", "Ballistic"][level.difficulty]}} layout</p>
+                                        </div>
+                                        <div class="nong-container">
+                                            <p class="director" @click="hovered = null; hovered = i" v-if="!(completed.levels?.some((completedLevel) => level.path === completedLevel.path))">More info</p>
+                                        </div>
+                                    </div>
+                                    <h2><a class="director" :href="'https://noyansdemonslist.vercel.app/#/level/' + level.path" target="_blank">{{ level.name }}</a></h2>
+                                    <div>
+                                        <div style="display: inline-block; width: 50%;">
+                                            <p class="director" style="cursor: pointer" @click="copyURL(level.id)">{{ level.id }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form class="actions grind-actions">
+                                    <!-- this is a string so the site can handle people typing the other half of the fraction
+                                         (since the text box itself won't stop a user from doing that) -->
+                                    <input type="text" placeholder="Enjoyment" v-model="typedValues[level.path].enjoyment">
+                                    <input type="number" placeholder="Percent" value="100" :min="level.percentToQualify" max=100 v-model="typedValues[level.path].percent">
+                                    <Btn v-if="!completed.levels?.some((completedLevel) => level.path === completedLevel.path)" style="background-color:rgb(27, 134, 29);" @click.native.prevent="complete(level)">Complete</Btn>
+                                    <Btn v-else style="background-color:rgb(196, 27, 27);" @click.native.prevent="uncomplete(level.path)">Uncomplete</Btn>
+                                </form>
+                                <div class="extra-stats-container" v-if="hovered === i">
+                                    <ul class="extra-stats">
+                                        <li>
+                                            <div class="type-title-sm">Points</div>
+                                            <p>{{ score(level.rank, level.difficulty, 100, level.percentToQualify, list) }}</p>
+                                        </li>
+                                        <li>
+                                            <div class="type-title-sm">List%</div>
+                                            <p>{{ level.percentToQualify }}%</p>
+                                        </li>
+                                        <li>
+                                            <div class="type-title-sm">Enjoyment</div>
+                                            <p>{{ averageEnjoyment(level.records) }}/10</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <br v-if="hovered === i">
+                                <div class="extra-stats-container" v-if="hovered === i">
+                                    <ul class="extra-stats">
+                                        <li>
+                                            <div class="type-title-sm">{{ level.songLink ? "NONG" : "Song" }}</div>
+                                            <p class="director" v-if="level.songLink"><a target="_blank" :href="songDownload" >{{ level.song || 'Song missing, please alert a list mod!' }}</a></p>
+                                            <p v-else>{{ level.song || 'Song missing, please alert a list mod!' }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     `,
