@@ -3,6 +3,7 @@
 		"name": "Former Top 1's",
 		"difficulty": 10,
 		"levels": [
+            "DeepThinking",
             "BladLastUnnerfed",
             "BloodworksOld",
             "Bloodworks",
@@ -85,6 +86,7 @@
         "name": "Levels That Took Long To Verify",
         "difficulty": 11,
         "levels": [
+            "TheLastEmbrace",
             "SakupenPringlesOld",
             "BladLastUnnerfed",
             "Brupple3",
