@@ -1,37 +1,68 @@
 [
 	{
-		"name": "Former Top 1's",
-		"difficulty": 10,
+		"name": "Former TOP1's 1",
+		"difficulty": 7,
 		"levels": [
             "DeepThinking",
             "BladLastUnnerfed",
             "BloodworksOld",
             "Bloodworks",
-            "Archon",
-			"SakupenPringles",
-			"StereoMADness",
-			"BladLast"
+            "Archon"
 		]
 	},
     {
-        "name": "Pointercrate Knock-Offs",
-        "difficulty": 12,
+        "name": "Former TOP1's 2",
+        "difficulty": 5,
         "levels": [
-            "BladLastUnnerfed",
-            "BloodworksOld",
-            "DeepThinking",
-            "EternalEclipse",
-	        "OnlyBeginning",
-            "VeinsOfRuin",
-            "Archon",
-            "StereoMADness",
-            "Bloodworks",
-            "Emptiness",
-            "Cosmos",
-            "Dimension",
+        	"SakupenPringles",
+			"StereoMADness",
+			"BladLast"
+        ]
+    },
+    {
+        "name": "Pointercrate Knock-Offs 1",
+        "difficulty": 6,
+        "levels": [
             "SilentStep",
             "YesJokes",
             "BladLast"
+        ]
+    },
+    {
+        "name": "Pointercrate Knock-Offs 2",
+        "difficulty": 5,
+        "levels": [
+            "Emptiness",
+            "Cosmos",
+            "Dimension"
+        ]
+    },
+    {
+        "name": "Pointercrate Knock-Offs 3",
+        "difficulty": 7,
+        "levels": [
+            "Archon",
+            "StereoMADness",
+            "Bloodworks"
+        ]
+    },
+    {
+        "name": "Pointercrate Knock-Offs 4",
+        "difficulty": 6,
+        "levels": [
+            "EternalEclipse",
+	        "OnlyBeginning",
+            "VeinsOfRuin"
+        ]
+    },
+    {
+        "name": "Pointercrate Knock-Offs 1",
+        "difficulty": 8,
+        "levels": [
+            "ForgottenCircles",
+            "BladLastUnnerfed",
+            "BloodworksOld",
+            "DeepThinking"
         ]
     },
     {
@@ -47,15 +78,21 @@
         ]
     },
     {
-        "name": "Short Levels",
-        "difficulty": 8,
+        "name": "Short Levels 1",
+        "difficulty": 5,
         "levels": [
             "OnlyBeginning",
             "MWspam",
             "NoyanCircles",
             "Brupple",
             "OrdinaryMatter",
-            "MiniMadness",
+            "MiniMadness"
+        ]
+    },
+    {
+        "name": "Short Levels 2",
+        "difficulty": 5,
+        "levels": [
             "Catastroveil",
             "HELLSDANCE",
             "Brupple2",
@@ -80,25 +117,6 @@
             "StereoMADness",
             "Brupple",
             "HELLSDANCE"
-        ]
-    },
-    {
-        "name": "Levels That Took Long To Verify",
-        "difficulty": 11,
-        "levels": [
-            "TheLastEmbrace",
-            "SakupenPringlesOld",
-            "BladLastUnnerfed",
-            "Brupple3",
-            "BloodworksOld",
-            "BladLast",
-            "Bloodworks",
-            "Cosmos",
-            "Dimension",
-            "VeinsOfRuin",
-            "SakupenPringles",
-            "HELLSDANCE",
-            "StereoMADness"
         ]
     }
 ]
