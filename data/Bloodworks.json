@@ -11,6 +11,14 @@
     "enjoyment": 10,
     "records": [
         {
+            "user": "alimertgd",
+            "link": "https://www.youtube.com/watch?v=VHaY2Y5UUmM",
+            "percent": 100,
+            "hz": 240,
+            "mobile": false,
+            "enjoyment": 9
+        },
+        {
             "user": "Exence",
             "link": "https://medal.tv/tr/games/requested/clips/lir2VCRXCPhkZoTKP?invite=cr-MSxkOW4sNDQwMTYzMTcw&v=41",
             "percent": 27,
