@@ -3,8 +3,8 @@ const path = require('path');
 
 export default function handler(req, res) {
   try {
-    // The generator writes a JSON blob to `pages/api/list` (no extension).
-    const filePath = path.join(process.cwd(), 'pages', 'api', 'list');
+    // Read the generated JSON file
+    const filePath = path.join(process.cwd(), 'pages', 'api', 'list.json');
     if (fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, 'utf8');
       const json = JSON.parse(raw);
