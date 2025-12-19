@@ -4,7 +4,7 @@ const path = require('path');
 const dataDir = path.join(__dirname, '..', 'data');
 const listPath = path.join(dataDir, '_list.json');
 const outDir = path.join(__dirname, '..', 'pages', 'api');
-const outPath = path.join(outDir, 'list');
+const outPath = path.join(outDir, 'list.json');
 
 function safeTagify(item) {
   const tags = [];
