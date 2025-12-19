@@ -1,7 +1,7 @@
 main.grind-page {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* vertically center the inner container */
     height: calc(100vh - 64px); /* Subtract header height */
     overflow: hidden;
 }
@@ -173,17 +173,19 @@ main.grind-page {
 }
 
 .rank-container {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center; /* vertically center rank text */
     width: 10%;
-    vertical-align: top;
+    padding-right: 0.5rem; /* add a bit of horizontal spacing */
 }
 
 .nong-container {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center; /* vertically center the "More info" link */
+    justify-content: flex-end;
     width: 90%;
-    vertical-align: top;
-    text-align: right;
     text-wrap: wrap;
+    padding-left: 0.5rem; /* add a bit of horizontal spacing */
 }
 
 .extra-stats {
