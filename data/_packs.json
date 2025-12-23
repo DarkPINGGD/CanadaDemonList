@@ -30,8 +30,9 @@
     },
     {
         "name": "Pointercrate Knock-Offs 2",
-        "difficulty": 5,
+        "difficulty": 7,
         "levels": [
+            "SakupenPringles2",
             "Emptiness",
             "Cosmos",
             "Dimension"
