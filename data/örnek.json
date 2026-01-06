@@ -1,0 +1,22 @@
+{
+    "id": 123,
+    "name": "unknown",
+    "creators": ["unknown"],
+    "verifier": "unknown"
+    "verification": "#",
+    "percentToQualify": 1,
+    "song": "unknown",
+    "songLink": "#",
+    "difficulty": 9,
+    "enjoyment": 10
+    "records": [
+        {
+            "user": "unknown",
+            "link": "#",
+            "percent": 9,
+            "hz": 60,
+            "mobile": false,
+            "enjoyment": 5
+        }
+    ]
+}
