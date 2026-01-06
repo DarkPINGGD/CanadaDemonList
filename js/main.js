@@ -206,7 +206,7 @@ let app = Vue.createApp({
                 const b = rgb & 0xff;
                 const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
                 if (luminance > 0.5) {
-                    this.store.dark = false
+                    this.store.dark = true
                     site.style.setProperty("--color-on-primary", "#000000");
                 } else {
                     this.store.dark = true;
